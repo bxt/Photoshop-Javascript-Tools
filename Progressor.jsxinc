@@ -1,0 +1,66 @@
+
+var Progressor = function(names){
+  var _ = localize; // shortcut for localization function
+  
+  // Localized messages (de,en)
+  var msg={
+    cancel:{de:"Abbrechen",en:"Cancel"},
+    cancelRequested:{de:"Abbrechen angefragt. ",en:'Cancel requested. '},
+    initializing:{de:"Abbrechen angefragt. ",en:'Initializing...'},
+    // The localize() functions inserts values for us too: 
+    progress:{de:"Bearbeite %1 von %2...",en:"Processing %1  of %2..."},
+  };
+  
+  // If the user has clicked the cancel button yet
+  var isCancelRequested = false;
+  
+  // Create a window first
+  var dlg = new Window('window', _(names)/*window name*/);
+  dlg.mainGroup = dlg.add('group');
+  // Align groups below eatch other
+  dlg.mainGroup.orientation = "column";
+  dlg.mainGroup.alignChildren = "right";
+  
+  // Add groups
+  dlg.progressGroup = dlg.mainGroup.add('group');
+  dlg.statusGroup = dlg.mainGroup.add('group');
+  dlg.btnGroup = dlg.mainGroup.add('group');
+  
+  // Add UI elements
+  
+  // Progress bar
+  dlg.progressbar = dlg.progressGroup.add('progressbar');
+  dlg.progressbar.preferredSize = [400,20]; // make 400px wide
+  
+  // Status text
+  dlg.stautsText = dlg.statusGroup.add('statictext',undefined,_(msg.initializing));
+  dlg.stautsText.preferredSize = [400,20]; // make 400px wide too
+  
+  // Cancel Button
+  dlg.cancelBtn = dlg.btnGroup.add('button',undefined,_(msg.cancel));
+  dlg.cancelBtn.onClick=function(){ // cancel event handler
+    isCancelRequested=true;
+    dlg.stautsText.text = _(msg.cancelRequested);
+  }
+  
+  // Show the window
+  dlg.show();
+  
+  // export methods for outside control
+  var self = {
+    // Indicate progression of the script
+    progress: function(i,of) {
+      dlg.progressbar.value=Math.round(100*i/of);
+      dlg.stautsText.text=_(msg.progress,i+1,of);
+    },
+    // Call at the end of the script
+    done: function() {
+      dlg.close();
+    },
+    // Poll while exectuing, abort when true
+    isCancelRequested: function(){
+      return isCancelRequested;
+    }
+  };
+  return self;
+};

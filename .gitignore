@@ -1,0 +1,16 @@
+# Generated files
+example-gen-*
+
+# Temporary files
+*~
+*.swp
+
+# KDE
+.directory
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+

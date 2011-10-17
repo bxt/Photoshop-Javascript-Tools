@@ -1,0 +1,30 @@
+
+function buildFilename(origname,name,index,suffix) {
+  return new File(extractFilestart(origname)+"-gen-"+zeropad(index)+"-"+filesc(name)+"."+suffix);
+}
+
+function extractFilestart(origname) {
+  return origname.path+"/"+removeFileExtension(origname.name);
+}
+
+function filesc(str) {
+  return (str+'')
+    .toLowerCase()
+    .replace('ö','oe')
+    .replace('ä','ae')
+    .replace('ü','ue')
+    .replace('ß','ss')
+    .replace(/[^0-9A-Za-z]+/g,'-')
+    .replace(/^-|-$/g,'');
+}
+
+function zeropad(n,anz) {
+  anz=anz||5;
+  var digitAnz=n==0?1:Math.floor(Math.log(n)/Math.log(10))+1;
+  return new Array(anz-digitAnz+1).join('0')+n;
+}
+
+function removeFileExtension(filename) {
+  // http://stackoverflow.com/questions/1818310/regular-expression-to-remove-a-files-extension
+  return filename.substr(0, filename.lastIndexOf('.')) || filename;
+}
