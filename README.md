@@ -14,6 +14,7 @@ Adobe Photoshop CS3. Supported languages are German and English.
 For end users:
 
 * Hilfslinien.jsx: Create guide lines for margin, midlines and golden ratio
+* Schriften.jsx: View and change font names as used in JS
 
 For Javascript developers:
 
