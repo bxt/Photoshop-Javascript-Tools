@@ -1,0 +1,186 @@
+
+/**
+ * Construct new Holidays object with a list of file lines
+ */
+function Holidays(input) {
+  this.inp=input;
+}
+
+(function(){
+/*
+
+Dateiformat / file format
+
+Kommentare / comments
+"# Liste der Feiertage"
+ ^ Kommentar-Teppich / comment pound sign
+  ^.. Ab hier ignoriert / rest is ignored
+
+Allgemein / common
+"* ?????? ???? Neujahrstag"
+ ^ "*" wenn gesetzlich / if nonbusiness, " " sonst / else. [0]
+   ^^^^^^ Typ / type [2,8]
+          ^^^^^ Paramter / parameters [9,14]
+                ^.. Ab hier Anzeigename des Tages / from here display label [15]
+
+Typ Festes Datum / fixed date
+"* fixed  01/01 Neujahrstag"
+          ^^/^^ dd/mm [9,11], [12,14]
+
+Typ Tagesdifferenz zum Ostersonntag / relative to easter date
+"  easter -048d Rosenmontag"
+          ^ Vorzeichen / sign [9]
+           ^^^d Anzahl Tage, dreistellig / number of days, 3 digits [10,13]
+
+Typ n-ter Wochentag im Monat / nth occurrence of day of week in month
+"  dowMon 20-05 Muttertag"
+          ^ n (wievielter Wochentag) / nth occurrence [9]
+           ^ Wochentag 0=Sonntag / dow 0=sunday [10]
+             ^^ Monat (Hier Mai) / month (e.g. may) [12,14]
+
+Typ nt letzter Wochentag im Monat / nth last occurrence of day of week in month
+"* dowMoL 11-05 Memorial Day"
+          ^ n (wievielt letzter Wochentag) / nth last occurrence [9]
+           ^ Wochentag 0=Sonntag / dow 0=sunday [10]
+             ^^ Monat (Hier Mai) / month (e.g. may) [12,14]
+
+Typ Letzter Wochentag vor Datum / last dow before a date
+"  dowDay 32311 Buß- u. Bettag"
+          ^ Wochentag 0=Sonntag / dow 0=sunday [9]
+           ^^^^ ddmm Erster Tag nicht betroffen / first day never chosen [10,14]
+
+*/
+
+// http://www.jgiesen.de/astro/astroJS/easter/index.htm
+function easterDate(y) {
+  var a = y % 19;
+  var b = Math.floor(y/100);
+  var c = y % 100;
+  var d = Math.floor(b/4);
+  var e = b % 4;
+  var f = Math.floor((b+8)/25);
+  var g = Math.floor((b-f+1)/3);
+  var h = (19*a+b-d-g+15) % 30;
+  var i = Math.floor(c/4);
+  var k = c % 4;
+  var l = (32+2*e+2*i-h-k) % 7;
+  var m = Math.floor((a+11*h+22*l)/451);
+  var n = Math.floor((h+l-7*m+114)/31);
+  var p = (h+l-7*m+114) % 31;
+  p = Math.round(p+1); 
+  return {m:n,d:p};
+}
+
+function backToDow(dow,from) {
+  var diff=dow-from.getDay();
+  if(diff>=0) diff-=7;
+  return new Date( from.getTime() + diff*86400000 );
+}
+
+function dowInMonth(dow,n,m,y) {
+  return backToDow(dow,new Date(y,m,7*n+1));
+}
+
+function dowInMonthLast(dow,n,m,y) {
+  return backToDow(dow,new Date(y,m+1,1-7*(n-1)));
+}
+
+/**
+ * List of holidays for a year
+ */
+Holidays.prototype.getDays=function(year) {
+    var inp=this.inp
+    var days=[];
+    var easter=easterDate(year);
+    for(var i=0;i<inp.length;i++) {
+      var l=inp[i];
+        if(inp[i] && l[0]!=='#') {
+          var day={date:null,name:l.slice(15),free:l[0]=='*'};
+          var type=l.slice(2,8)
+          if(type=="fixed ") {
+            day.date=new Date(year,l.slice(12,14)-1,l.slice(9,11));
+          }
+          if(type=="easter") {
+            day.date=new Date(year,easter.m-1,easter.d+(l[9]=='-'?-1:1)*l.slice(10,13));
+          }
+          if(type=="dowMon") {
+            day.date=dowInMonth(l[10],l[9],l.slice(12,14)-1,year);
+          }
+          if(type=="dowMoL") {
+            day.date=dowInMonthLast(l[10],l[9],l.slice(12,14)-1,year);
+          }
+          if(type=="dowDay") {
+            day.date=backToDow(l[9],new Date(year,l.slice(12,14)-1,l.slice(10,12)));
+          }
+          days.push(day)
+        }
+    }
+    return days;
+}
+
+/**
+ * List of holidays for one day
+ */
+Holidays.prototype.getDaysForDate=(function() {
+  function idx(date) {
+    return date.getMonth()+"-"+date.getDate();
+  }
+  return (function(date) {
+    if(!this._daysCache) this._daysCache={};
+    var dC=this._daysCache;
+    var y=date.getFullYear();
+    if(!dC[y]) {
+      dC[y]={};
+      var ds=this.getDays(y);
+      for(var i=0;i<ds.length;i++) {
+        var idx2=idx(ds[i].date);
+        if(!dC[y][idx2]) {
+          dC[y][idx2]=[];
+        }
+        dC[y][idx2].push(ds[i]);
+      }
+    }
+    return dC[y][idx(date)];
+  });
+})();
+
+/**
+ * String list of holidays for a year
+ */
+Holidays.prototype.printDays=function(year){
+  var d=this.getDays(year),s=[];
+  for(var i=0;i<d.length;i++) {
+    s.push(d[i].date.getDate(),'.',d[i].date.getMonth()+1,'. ',d[i].name,'\n');
+  }
+  return s.join('');
+};
+
+})();
+
+/*
+var h= new Holidays(inp);
+console.log(h.printDays(2012));
+console.log(h.getDaysForDate(new Date(2012,0,1)),"-",h.getDaysForDate(new Date(2012,3,9)));
+console.log(h);
+*/
+
+/**
+ * Load holyday data from file (ExtendedScript File object)
+ * @return Holidays
+ */
+function createHolidaysFromFileExtendedScript(file) {
+  file.open('r');
+  var inp=[];
+  while(!file.eof) {
+    var l=file.readln();
+    inp.push(l);
+  }
+  file.close();
+  return new Holidays(inp);
+}
+/* example:
+var h=createHolidaysFromFileExtendedScript(new File('/c/Dokumente und Einstellungen/Burny/Desktop/kalender/germany-bavaria.txt'));
+alert(h.printDays(2012));
+*/
+
+

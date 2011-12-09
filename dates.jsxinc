@@ -1,0 +1,38 @@
+/**
+ * Some useful functions for dates and translated
+ * date names
+ */
+
+function kw(date) { // DIN (german) KW
+  function th(date) {
+    var thd=new Date();
+    thd.setTime( date.getTime() + (3-((date.getDay()+6)%7))*86400000 );
+    return thd;
+  }
+  var thd=th(date);
+  var year=thd.getFullYear();
+  var fstThd=th(new Date(year,0,4));
+  var kw=Math.floor(1.5+( thd.getTime()-fstThd.getTime() )/86400000/7);
+  return kw;
+}
+
+var monthNames={en:[
+  "January","February","March",     "April",  "May",      "June",
+  "July",   "August",  "September", "October","November", "December"
+],de:[
+  "Januar", "Februar", "März",      "April",  "Mai",      "Juni",
+  "Juli",   "August",  "September", "Oktober","November", "Dezember"
+],es:[
+  "enero",  "febrero", "marzo",     "abril",  "mayo",     "junio",
+  "julio",  "agosto",  "septiembre","octubre","noviembre","diciembre"
+]}[localize({en:"en",es:"es",de:"de"})];
+
+var dayOfWeekNames={en:[
+  "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+],de:[
+  "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"
+],es:[
+  "D",  "L",  "M",  "X",  "J",  "V",  "S"
+]}[localize({en:"en",es:"es",de:"de"})];
+
+

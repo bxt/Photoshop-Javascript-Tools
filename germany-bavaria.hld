@@ -1,0 +1,37 @@
+# List of holidays for bevaria in germany, 
+# for mainly catholic regions except Augsburg
+# as of 2011-12-07. 
+
+* fixed  01/01 Neujahrstag
+* fixed  06/01 Hl. Drei Könige
+  fixed  14/02 Valentinstag
+  easter -048d Rosenmontag
+  easter -047d Fastnacht
+  easter -046d Aschermittwoch
+  easter -003d Gründonnerstag
+* easter -002d Karfreitag
+  easter +000d Ostersonntag
+* easter +001d Ostermontag
+* fixed  01/05 Tag der Arbeit
+  dowMon 20-05 Muttertag
+* easter +039d Christi Himmelfahrt
+  easter +049d Pfingstsonntag
+* easter +050d Pfingstmontag
+* easter +060d Fronleichnam
+* fixed  15/08 Mariä Himmelfahrt
+  dowMon 10-10 Erntedankfest
+* fixed  03/10 Tag der dt. Einheit
+  fixed  31/10 Reformationstag
+* fixed  01/11 Allerheiligen
+  dowDay 32311 Buß- u. Bettag
+  dowDay 02011 Volkstrauertag
+  fixed  06/12 Nikolaus
+  dowDay 00412 1. Advent
+  dowDay 01112 2. Advent
+  dowDay 01812 3. Advent
+  dowDay 02512 4. Advent
+  fixed  24/12 Heiligabend
+* fixed  25/12 1. Weihnachtstag
+* fixed  26/12 2. Weihnachtstag
+  fixed  31/12 Silvester
+
