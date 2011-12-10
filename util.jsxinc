@@ -1,6 +1,6 @@
 
 function buildFilename(origname,name,index,suffix) {
-  return new File(extractFilestart(origname)+"-gen-"+zeropad(index)+"-"+filesc(name)+"."+suffix);
+  return new File(extractFilestart(origname)+(index===undefined?"":"-gen-"+zeropad(index))+"-"+filesc(name)+"."+suffix);
 }
 
 function extractFilestart(origname) {
