@@ -34,5 +34,5 @@ To install simply copy the files listed at (*) into the directoy
 `Adobe Photoshop CS3/Presets/Scripts/` or 
 `Adobe Photoshop CS3/Vorgaben/Skripten/`. 
 
-Then set your JSINCLUDE enviroment variable to the path of this
-directory, e.g. /c/Program Files/Photoshop-Javascript-Tools/
+Then set your `JSINCLUDE` enviroment variable to the path of this
+directory, e.g. `/c/Program Files/Photoshop-Javascript-Tools/`
