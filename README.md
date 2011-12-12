@@ -1,7 +1,7 @@
 Photoshop-Javascript-Tools
 ==========================
 
-Version 0.9.1
+Version 0.9.2
 
 [News](http://bernhardhaeussner.de/blog/tags/Photoshop "News")
 
