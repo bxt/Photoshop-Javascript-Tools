@@ -23,6 +23,9 @@ For Javascript developers:
 * util.jsxinc: Utility functions for file renaming and number formating
 * dates.jsxinc: Date utilities
 * Holidays.jsxinc: Calculate repeating days for a year based on .hld files
+* cal.jsx: Example for creating a neat calendar with holidays
+* webexport.jsx: Example for batch exporting to resized JPEGs
+* printexport.jsx: Similar, but checking for 300dpi and color profile too
 
 Installing
 ----------
