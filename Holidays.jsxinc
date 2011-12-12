@@ -183,4 +183,24 @@ var h=createHolidaysFromFileExtendedScript(new File('/c/Dokumente und Einstellun
 alert(h.printDays(2012));
 */
 
+/**
+ * Load holyday data from installed file (String of region)
+ * @return Holidays
+ */
+function createHolidaysFromRegion(region) {
+  var file=new File('holidays/'+region+'.hld');
+  file.open('r');
+  var inp=[];
+  while(!file.eof) {
+    var l=file.readln();
+    inp.push(l);
+  }
+  file.close();
+  return new Holidays(inp);
+}
+/* example:
+var h=createHolidaysFromFileExtendedScript('usa');
+alert(h.printDays(2012));
+*/
+
 

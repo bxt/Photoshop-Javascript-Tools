@@ -39,9 +39,9 @@ holidayDaytextColor.rgb.hexValue="839ab7";
 var monthNameFont="GaramondPremrPro-Med";
 var dayNameFont="GaramondPremrPro";
 
-var holidays=createHolidaysFromFileExtendedScript(
-  new File(activeDocument.fullName.path+"/germany-bavaria.hld"));
-  //new File(activeDocument.fullName.path+"/usa.hld"));
+var holidays=createHolidaysFromRegion(
+  "germany-bavaria");
+  //"usa");
 
 var yearLayername={en:"calendar, year %1",de:"Kalender, Jahr %1"};
 var monthLayername={en:"month %1",de:"Monat %1"};
