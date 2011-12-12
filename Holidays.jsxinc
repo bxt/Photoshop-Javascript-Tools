@@ -1,3 +1,7 @@
+/**
+ * This is a small Javascript library to calculate
+ * holidays for a year from a .hld file. 
+ */
 
 /**
  * Construct new Holidays object with a list of file lines

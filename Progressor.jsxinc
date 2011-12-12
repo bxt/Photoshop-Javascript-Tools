@@ -1,3 +1,7 @@
+/**
+ * This is a Photoshop UI-Component to display neat progress bars
+ */
+
 var Progressor = function(names){
   var _ = localize; // shortcut for localization function
   
