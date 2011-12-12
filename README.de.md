@@ -8,29 +8,29 @@ Version 0.9.2
 Inhalt
 ------
 
-Die Photoshop Javascript Tools enthalten einige nützliche Scripten lauffähig in 
-Adobe Photoshop CS3. Unterstützt werden Deutsch und English. 
+Die Photoshop Javascript Tools enthalten einige nÃ¼tzliche Scripten lauffÃ¤hig in 
+Adobe Photoshop CS3. UnterstÃ¼tzt werden Deutsch und English. 
 
-Für Enbenutzer: (*)
+FÃ¼r Enbenutzer: (*)
 
 * Hilfslinien.jsx: Erstellung von Hilfslinien als Mittellinien und im Goldenen Schnitt
-* Schriften.jsx: Schriftarten-Namen anzeigen und ändern im JS-Format
+* Schriften.jsx: Schriftarten-Namen anzeigen und Ã¤ndern im JS-Format
 
-Für Javascript-Entwickler:
+FÃ¼r Javascript-Entwickler:
 
-* example.jsx: Beispielhaftes Stapelverarbeitungs-Script, um Texte aus JSON-Daten einzufügen
+* example.jsx: Beispielhaftes Stapelverarbeitungs-Script, um Texte aus JSON-Daten einzufÃ¼gen
 * Progressor.jsxinc: Ein Fortschrittsbalken-UI
-* util.jsxinc: Nützliche Funktionen zum Umbennenen von Dateien und Formatieren von Zahlen
+* util.jsxinc: NÃ¼tzliche Funktionen zum Umbennenen von Dateien und Formatieren von Zahlen
 * dates.jsxinc: Datumsfunktionen
-* Holidays.jsxinc: Sich jährlich wiederholende Termine berechen aus .hld-Dateien
-* cal.jsx: Beispiel, um einen hübschen Kalender mit Feiertagen zu erstellen
+* Holidays.jsxinc: Sich jÃ¤hrlich wiederholende Termine berechen aus .hld-Dateien
+* cal.jsx: Beispiel, um einen hÃ¼bschen Kalender mit Feiertagen zu erstellen
 * webexport.jsx: Beispiel, um viele Bilder als verkleinertes JPEG zu exportieren
-* printexport.jsx: Ähnlich, prüft jedoch auf 300dpi und ein Farbprofil
+* printexport.jsx: Ã„hnlich, prÃ¼ft jedoch auf 300dpi und ein Farbprofil
 
 Installation
 ------------
 
-Zum Installieren müssen die Dateien unter (*) in den Ordner
+Zum Installieren mÃ¼ssen die Dateien unter (*) in den Ordner
 `Adobe Photoshop CS3/Vorgaben/Skripten/` bzw. 
 `Adobe Photoshop CS3/Presets/Scripts/` kopiert werden. 
 
