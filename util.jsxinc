@@ -1,6 +1,10 @@
 
 function buildFilename(origname,name,index,suffix) {
-  return new File(extractFilestart(origname)+(index===undefined?"":"-gen-"+zeropad(index))+"-"+filesc(name)+"."+suffix);
+  var filename = extractFilestart(origname)
+  if(index!==undefined) filename+="-gen-"+zeropad(index)
+  if(name!==undefined) filename+="-"+filesc(name)
+  if(suffix!==undefined) filename+="."+suffix
+  return new File(filename);
 }
 
 function extractFilestart(origname) {
@@ -10,10 +14,10 @@ function extractFilestart(origname) {
 function filesc(str) {
   return (str+'')
     .toLowerCase()
-    .replace('ö','oe')
-    .replace('ä','ae')
-    .replace('ü','ue')
-    .replace('ß','ss')
+    .replace('ï¿½','oe')
+    .replace('ï¿½','ae')
+    .replace('ï¿½','ue')
+    .replace('ï¿½','ss')
     .replace(/[^0-9A-Za-z]+/g,'-')
     .replace(/^-|-$/g,'');
 }
