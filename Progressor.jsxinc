@@ -55,6 +55,7 @@ var Progressor = function(names){
     progress: function(i,of) {
       dlg.progressbar.value=Math.round(100*i/of);
       dlg.stautsText.text=_(msg.progress,i+1,of);
+      dlg.update();
     },
     // Call at the end of the script
     done: function() {
